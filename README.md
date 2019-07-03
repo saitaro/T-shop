@@ -1,2 +1,2 @@
 # T-shop
-Test shop written with Django.
+Test e-shop written with Django.
