@@ -1,0 +1,39 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Registration</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="content-section m-5 col-6">
+				<form method="POST">
+					{% csrf_token %}
+					<fieldset class="form-group">
+						<legend class="border-bottom mb-4">Join Today</legend>
+						{{ form|crispy }}
+					</fieldset>
+					<div class="form-group">
+						<button class="btn btn-outline-info" type="submit">Sign Up</button>
+					</div>
+				</form>
+				<div class="border-top pt-3">
+					<small class="text-muted">
+						Already have an account? <a href="#" class="ml-2">Sign In</a>
+					</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

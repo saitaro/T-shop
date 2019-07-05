@@ -1,0 +1,39 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Log in</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="content-section m-5 col-6">
+				<form method="POST">
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Войдите!</legend>
+            {% csrf_token %}
+						{{ form|crispy }}
+					</fieldset>
+					<div class="form-group">
+						<button class="btn btn-outline-info" type="submit">Log in</button>
+					</div>
+				</form>
+				<div class="border-top pt-3">
+					<small class="text-muted">
+						Нет аккаунта? Не беда!<a href="{% url 'register' %}" class="ml-2">Создать</a>
+					</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

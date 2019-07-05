@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Welcome to T-shop!</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
+	<link
+		href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap"
+		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Questrial&display=swap"
+		rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
+</head>
+
+<body class="bg-light">
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+		<div class="container">
+			<a class="navbar-brand text-warning" href="{% url 'store:catalog' %}"
+				style="font-family: Permanent Marker, cursive;"><span
+					class="display-4">T-shop</span>
+			</a>
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link text-info" href="{% url 'store:cart' %}"
+						style="font-family: Questrial"><i class="material-icons">shopping_cart</i><span class="h5 mx-2 align-text-bottom">Cart</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-info ml-4" href="{% url 'admin:index' %}"
+						style="font-family: Questrial"><i class="material-icons">account_circle</i><span class="h5 mx-2 align-text-bottom">Login</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-info ml-4" href="{% url 'admin:index' %}"
+						style="font-family: Questrial"><i class="material-icons">assignment_ind</i><span class="h5 mx-2 align-text-bottom">Admin panel</span></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	{% block content %}
+	{% endblock %}
+</body>
+
+</html>

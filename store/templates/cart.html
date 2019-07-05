@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<div class="container">
+  <div class="col-10 offset-2">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="h5">Article</th>
+          <th class="h5">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product, quantity in cart.items %}
+        <tr>
+          <th scope="row">{{ product }}</th>
+          <td>{{ quantity }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      <tr>
+    </table>
+    <a href="#" class="btn btn-danger btn-lg float-center">Buy for</a>
+    <div class="p2"> {{ total_price }}</div>
+  </div>
+</div>
+    
+{% endblock %}
+  

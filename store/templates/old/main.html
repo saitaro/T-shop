@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Index</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+		<div class="container">
+			<a class="navbar-brand text-warning" href="{% url 'index' %}" style="font-family: Shadows Into Light"><span class="display-4">Liquid</span><span class="text-success ml-2" style="font-family: Fira Sans Condensed">image wizard</span></a>
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link text-info" href="{% url 'upload' %}" style="font-family: Questrial">Upload</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-info ml-4" href="{% url 'admin:index' %}" style="font-family: Questrial">Admin panel</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+  {% block content %}
+  {% endblock %}
+    
+</body>
+</html>

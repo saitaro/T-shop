@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
+    'crispy_forms',
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +57,7 @@ ROOT_URLCONF = 'tshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -80,6 +84,7 @@ DATABASES = {
     }
 }
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -113,8 +118,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+AUTH_USER_MODEL = 'store.User'
+
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'RU'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# CRISPY_TEMPLATE_PACK = 'foundation'
+# CRISPY_TEMPLATE_PACK = 'uni-form'
+
+LOGIN_REDIRECT_URL = 'store:catalog'
+LOGOUT_REDIRECT_URL = 'store:catalog'
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

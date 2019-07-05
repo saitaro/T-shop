@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row mr-3">
+    <div class="col-12 mr-0">
+      <div class="d-flex flex-wrap row-hl">
+        {% for product in products %}
+        <div class="card m-2" style="width:12rem;">
+          <img class="card-img-top" style="object-fit:scale-down; height: 15rem; width: 100%" src="{{ product.photo.url }}">
+          <div class="card-body d-flex flex-column">
+            <h4 class="card-title">{{ product.name }}</h4>
+            <h6 class="card-text text-bold">${{ product.price }}</h6>
+            <p class="card-text pb-auto">{{ product.description }}</p>
+            <a href="{% url 'store:add_to_cart' product.name %}" class="btn btn-warning btn-block mt-auto font-weight-bold">Add to Cart</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

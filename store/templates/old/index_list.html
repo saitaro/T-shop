@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-4 offset-1">
+    <a href="{% url 'index' %}" class="btn btn-warning m-4">Turn to gallery</a>
+    <ul>
+      {% for image in images %}
+      <li class="mb-2">
+        
+        {% if image.name %}
+        <a href="{{ image.file.url }}">{{ image.name }}</a>
+        
+        {% if image.description %}
+        <br><span class="text-secondary">{{ image.description }}</span>
+        {% endif %}
+          
+        {% else %}  
+        <a href="{{ image.file.url }}">(untitled)</a>
+        {% endif %}
+          
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

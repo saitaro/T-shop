@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous">
+  <title>{{ user }}'s profile</title>
+</head>
+<body>
+  <h1 class="px-4 mb-0 display-4 bg-light text-dark pb-3">Избранное</h1>
+  <table class="table table-sm table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Площадь</th>
+          <th>Этаж</th>
+          <th>Цена, руб/мес</th>
+          <th>Адрес
+            <a class="float-right text-dark mr-3">Всего избранных: {{ favs.count }}</a>
+            <a class="float-right text-success mr-3" href="{% url 'main:cian_render' %}">На главную</a> 
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fav in favs %}
+        <tr>
+          <th scope="row">{{ fav.id }}</th>
+          <td>{{ fav.total_area }} м²</td>
+          <td>{{ fav.floor }}</td>
+          <td>{{ fav.price }}</td>
+          <td>{{ fav.address }}<a class="ml-2" href="{% url 'add_favorite' pk=fav.pk %}" title="Удалить">🗑</a> </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</body>
+</html>
