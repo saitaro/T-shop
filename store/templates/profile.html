@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<div class="container m-auto">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+</div>
+  
+
+<div class="container">
+  <div class="row">
+    <div class="col-9 mb-4">
+      
+      {% if orders %}
+
+      {% for order in orders reversed %}
+      <div class="card my-4 border-dark">
+        <div class="card-header font-weight-bold">Order #{{ order.pk }} • {{ order.date }}</div>
+        <div class="card-body">
+          <ul>
+            {% for entry in order.entries.all %}
+            <li class="card-title">{{ entry.quantity }} ✕ {{ entry.product }} – ${{ entry.price }}</li>
+            {% endfor %}
+          </ul>
+          <tr>
+          <p class="ml-4"><mark>
+            Total: ${{ order.total_price }}
+          </mark></p>
+          <h5 class="ml-4 mt-3">Shipping address: <span class="font-weight-normal ml-1">{{ order.address }}</span></h5>
+        </div>
+      </div>
+      {% endfor %}
+
+      {% else %}
+      <p class="display-4 mt-4">You have no orders yet.</p>
+      {% endif %}
+          
+        
+    </div>
+    <div class="col-3">
+      <div class="card text-dark bg-wight border-success border-2 mt-4">
+        <div class="card-header h4 bg-success text-light">Profile info</div>
+        <div class="card-body">
+          <p class="card-title">email: <span class="font-weight-bold">{{ user.email }}</span></p>
+          <p class="card-title">Full Name: <span class="font-weight-bold">{{ user.name }}</span></p>
+          <p class="card-title">Phone: <span class="font-weight-bold">{{ user.phone }}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

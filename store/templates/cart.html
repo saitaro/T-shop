@@ -1,30 +1,53 @@
 {% extends 'main.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
+
 <div class="container">
-  <div class="col-10 offset-2">
-    <table class="table">
+  {% if entries %}
+  <div class="col-10 offset-1">
+    <table class="table w-80">
       <thead>
         <tr>
           <th class="h5">Article</th>
           <th class="h5">Quantity</th>
+          <th class="h5">Price</th>
         </tr>
       </thead>
       <tbody>
-        {% for product, quantity in cart.items %}
+        {% for entry in entries %}
         <tr>
-          <th scope="row">{{ product }}</th>
-          <td>{{ quantity }}</td>
+          <th scope="row">{{ entry.product.name }}</th>
+          <td>{{ entry.quantity }}</td>
+          <td>{{ entry.price }}</td>
         </tr>
-      {% endfor %}
+        {% endfor %}
       </tbody>
       <tr>
     </table>
-    <a href="#" class="btn btn-danger btn-lg float-center">Buy for</a>
-    <div class="p2"> {{ total_price }}</div>
+
+    <form method="POST" enctype="multipart/form-data"
+      class="d-flex justify-content-between mt-3">
+      {% csrf_token %}
+      <ul class="list-unstyled mt-2">
+        <li>Name: <span class="h6">{{ user.name }}</span></li>
+        <li>Phone: <span class="h6 pt-2">{{ user.phone }}</span></li>
+      </ul>
+      <div class="p-8 ml-3">{{ form|crispy }}</div>
+      <div class="p-4 mr-5 pr-5">
+        <button type="submit"
+          class="btn btn-danger btn-lg float-center align-self-right">Buy for
+          ${{ total_price }}
+        </button>
+      </div>
+    </form>
+
   </div>
+  {% else %}
+  <div class="col-6 offset-3">
+    <p class="display-4 mt-4">Your cart is empty.</p>
+  </div>
+  {% endif %}
 </div>
-    
+
 {% endblock %}
-  

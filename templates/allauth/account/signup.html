@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h1 class="display-4 my-3">{% trans "Sign Up" %}</h1>
+      <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+      <form class="signup mt-4" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'store:catalog' %}" />
+        <button class="btn btn-warning btn-block mt-5" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

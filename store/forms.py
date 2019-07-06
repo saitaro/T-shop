@@ -1,63 +1,39 @@
-import re
-
-import requests
 from django import forms
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
+from phonenumber_field.formfields import PhoneNumberField
+from multiselectfield import MultiSelectField
+from allauth.account.forms import SignupForm
+from django.http.request import QueryDict
 
-from .models import Image
+from .models import Order, Category
 
 
-class ImageForm(forms.Form):
-    name = forms.CharField(max_length=128, required=False)
-    description = forms.CharField(max_length=128, required=False)
-    url = forms.URLField(required=False, label='URL')
-    file = forms.ImageField(required=False)
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = 'address',
+        
 
-    def clean_file(self):
-        file = self.cleaned_data.get('file')
-        url = self.data.get('url')
+class StoreSignupForm(SignupForm):
+    email = forms.EmailField(max_length=35, label='email')
+    name = forms.CharField(max_length=50, label='Full Name')
+    phone = PhoneNumberField()
 
-        if file and url:
-            raise forms.ValidationError('Cannot use both File and URL fields.')
-        elif not (file or url):
-            raise forms.ValidationError('Please use either File or URL field.')
-        elif url and requests.get(url).status_code != 200:
-            raise forms.ValidationError('Image unavailable.')
-        elif url:
-            filename = url.split('/')[-1]
-            pattern = re.compile(r'.+\.(jpeg|jpg|png|gif|tiff|tif)', re.IGNORECASE)
-            if not pattern.search(filename):
-                raise forms.ValidationError('Image type must be JPEG, TIFF, PNG or GIF.')
-        else:
-            return file or url
+    def save(self, request):
+        user = super(StoreSignupForm, self).save(request)
+        user.email = self.cleaned_data['email']
+        user.name = self.cleaned_data['name']
+        user.phone = self.cleaned_data['phone']
+        user.save()
 
-    def save(self, user=None):
-        data = dict(self.data, **self.cleaned_data)
-        name = data.get('name')
-        description = data.get('description')
-        url = data.get('url')
+        return user
 
-        if url:
-            request = requests.get(url)
-            temp = NamedTemporaryFile()
-            filename = url.split('/')[-1]
-            pattern = re.compile(r'.+\.(jpeg|jpg|bmp|png|gif)', re.IGNORECASE)
-            filename = pattern.search(filename)[0]
 
-            for block in request.iter_content(1024 * 4):
-                if not block:
-                    break
-                temp.write(block)
+class CategoryForm(forms.Form):
+    OPTIONS = tuple(Category.objects.all().values_list('id', 'name'))
 
-            file = File(temp, name=filename)
-
-        else:
-            file = data.get('file')
-
-        Image.objects.create(
-            name=name,
-            description=description,
-            uploader=user,
-            file=file,
-        )
+    categories = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        choices=OPTIONS,
+        label='Categories:',
+        initial=Category.objects.all().values_list('id', flat=True),
+    )

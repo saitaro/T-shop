@@ -55,7 +55,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=255, db_index=True, unique=True)
-    category = models.ManyToManyField(Category, related_name='products')
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     description = models.TextField(blank=True)
     photo = models.ImageField(upload_to='products/', blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2)
@@ -65,7 +65,7 @@ class Product(models.Model):
 
 
 class Entry(models.Model):
-    order = models.ForeignKey('Order', related_name='positions', on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', related_name='entries', on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField()
 
@@ -82,22 +82,21 @@ class Entry(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
-    entries = models.ManyToManyField(Product, through=Entry)
-    address = models.CharField(max_length=255)
+    address = models.TextField(max_length=150)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.customer.name} at {self.address}'
 
-
     @property
     def total_entries(self):
-        return self.positions.count()
+        return self.entries.count()
 
     @property
     def total_products(self):
-        return self.positions.aggregate(Sum('quantity'))
+        return self.entries.aggregate(Sum('quantity'))['quantity__sum']
 
     @property
     def total_price(self):
-        return self.positions.aggregate(total_price=Sum(F('quantity')*F('product__price'),
-                                        output_field=DecimalField()))['total_price']
+        return self.entries.aggregate(total_price=Sum(F('quantity')*F('product__price'),
+                                      output_field=DecimalField()))['total_price']

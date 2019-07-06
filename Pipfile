@@ -10,6 +10,7 @@ django = "==2.2"
 django-crispy-forms = "*"
 pillow = "*"
 phonenumberslite = "*"
+django-allauth = "*"
 
 [dev-packages]
 
