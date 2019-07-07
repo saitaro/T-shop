@@ -30,17 +30,13 @@ def add_to_cart(request, pk):
         cart[pk] += 1
     else:
         cart[pk] = 1
-
-    request.session['cart'] = cart
     request.session.modified = True
-    return redirect('store:catalog')
+    # return redirect('store:catalog')
 
 
 def remove(request, pk):
-    cart = request.session.get('cart', {})
+    cart = request.session['cart']
     del cart[pk]
-
-    request.session['cart'] = cart
     request.session.modified = True
     return redirect('store:cart')
 
@@ -59,7 +55,7 @@ def cart(request):
             for entry in entries:
                 entry.order = order
             Entry.objects.bulk_create(entries)
-            messages.add_message(request, 666, f'Thanks for shopping! Your order was created with ID: {order.pk}.')
+            messages.add_message(request, 777, f'Thanks for shopping! Your order was created with ID: {order.pk}.')
             request.session['cart'] = {}
             return redirect('store:profile')
     else:
