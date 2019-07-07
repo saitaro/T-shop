@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'phonenumber_field',
-    'multiselectfield',
     'crispy_forms',
     'allauth',
     'allauth.account',

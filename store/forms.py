@@ -1,6 +1,5 @@
 from django import forms
 from phonenumber_field.formfields import PhoneNumberField
-from multiselectfield import MultiSelectField
 from allauth.account.forms import SignupForm
 from django.http.request import QueryDict
 
@@ -12,6 +11,17 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = 'address',
         
+
+class CategoryForm(forms.Form):
+    OPTIONS = tuple(Category.objects.all().values_list('id', 'name'))
+
+    categories = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        choices=OPTIONS,
+        label='Categories:',
+        initial=Category.objects.all().values_list('id', flat=True),
+    )
+
 
 class StoreSignupForm(SignupForm):
     email = forms.EmailField(max_length=35, label='email')
@@ -26,14 +36,3 @@ class StoreSignupForm(SignupForm):
         user.save()
 
         return user
-
-
-class CategoryForm(forms.Form):
-    OPTIONS = tuple(Category.objects.all().values_list('id', 'name'))
-
-    categories = forms.MultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple,
-        choices=OPTIONS,
-        label='Categories:',
-        initial=Category.objects.all().values_list('id', flat=True),
-    )
