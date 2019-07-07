@@ -14,8 +14,12 @@
 		rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Questrial&display=swap"
 		rel="stylesheet">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 		rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+		crossorigin="anonymous"></script>
+
 </head>
 
 <body class="bg-light">
@@ -23,44 +27,62 @@
 		<div class="container">
 			<a class="navbar-brand text-warning" href="{% url 'store:catalog' %}">
 				<span style="font-family: Permanent Marker, cursive;"
-					class="display-4 mr-4">T-shop</span> 
-					{% if user.is_authenticated %}
-						<span class="text-success">Welcome, {{ user.name }}!</span>
-					{% endif %}
+					class="display-4 mr-4">T-shop</span>
+				{% if user.is_authenticated %}
+				<span class="text-success">Welcome, {{ user.name }}!</span>
+				{% endif %}
 			</a>
-				
+
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link text-info" href="{% url 'store:cart' %}"
-						style="font-family: Questrial"><i class="material-icons">shopping_cart</i><span class="h5 mx-2 align-text-bottom">Cart</span></a>
+						style="font-family: Questrial"><i
+							class="material-icons {% if cart %}text-success{% endif %}">shopping_cart</i>
+						<span
+							class="h5 mx-2 align-text-bottom {% if cart %}text-success{% endif %}">Cart
+							({{ cart }})</span></a>
 				</li>
-				
+
 				{% if user.is_authenticated %}
-				<li class="nav-item pr-2">
+				<li class="nav-item mr-2">
 					<a class="nav-link text-info ml-2" href="{% url 'account_logout' %}"
-						style="font-family: Questrial"><i class="material-icons">meeting_room</i><span class="h5 mx-2 align-text-bottom">Sign out</span></a>
+						style="font-family: Questrial"><i
+							class="material-icons">meeting_room</i><span
+							class="h5 mx-2 align-text-bottom">Sign out</span></a>
 				</li>
 				{% else %}
-				<li class="nav-item pr-2">
+				<li class="nav-item mr-2">
 					<a class="nav-link text-info ml-2" href="{% url 'account_login' %}"
-						style="font-family: Questrial"><i class="material-icons">meeting_room</i><span class="h5 mx-2 align-text-bottom">Sign in</span></a>
+						style="font-family: Questrial"><i
+							class="material-icons">meeting_room</i><span
+							class="h5 mx-2 align-text-bottom">Sign in</span></a>
 				</li>
 				{% endif %}
-				
+
 				<li class="nav-item mr-5 pr-3">
 					<a class="nav-link text-info" href="{% url 'store:profile' %}"
-						style="font-family: Questrial"><i class="material-icons">person</i><span class="h5 mx-2 align-text-bottom">Profile</span></a>
+						style="font-family: Questrial"><i
+							class="material-icons">person</i><span
+							class="h5 mx-2 align-text-bottom">Profile</span></a>
 				</li>
 
 				<!-- <li class="nav-item">
-					<a class="nav-link text-info ml-4" href="{% url 'admin:index' %}"
+					<a class="nav-link text-info" href="{% url 'admin:index' %}"
 						style="font-family: Questrial"><i class="material-icons">assignment_ind</i><span class="h5 mx-2 align-text-bottom">Admin panel</span></a>
 				</li> -->
+
 			</ul>
 		</div>
 	</nav>
 	{% block content %}
 	{% endblock %}
+	
+	<script>
+	$( "#prodname" ).mouseenter(
+		function() {
+			$( $("#del") ).hide();
+		}
+	);
+	</script>
 </body>
-
 </html>

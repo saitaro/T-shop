@@ -17,7 +17,9 @@
       <tbody>
         {% for entry in entries %}
         <tr>
-          <th scope="row">{{ entry.product.name }}</th>
+          <th scope="row" class="prodname">{{ entry.product.name }}
+            <a href="{% url 'store:remove' entry.product.pk %}" class="del ml-2">✕</a>
+          </th>
           <td>{{ entry.quantity }}</td>
           <td>{{ entry.price }}</td>
         </tr>
@@ -30,8 +32,8 @@
       class="d-flex justify-content-between mt-3">
       {% csrf_token %}
       <ul class="list-unstyled mt-2">
-        <li>Name: <span class="h6">{{ user.name }}</span></li>
-        <li>Phone: <span class="h6 pt-2">{{ user.phone }}</span></li>
+        <li>Full Name: <span class="h6">{{ user.name }}</span></li>
+        <li class="mt-1">Phone: <span class="h6">{{ user.phone }}</span></li>
       </ul>
       <div class="p-8 ml-3">{{ form|crispy }}</div>
       <div class="p-4 mr-5 pr-5">
@@ -49,5 +51,14 @@
   </div>
   {% endif %}
 </div>
-
+	
+<script>
+$( "th" ).hover(
+  function() {
+    $( '.del' ).css("visibility", "");
+  }, function() {
+    $( '.del' ).css("visibility", "hidden");
+  }
+);
+</script>
 {% endblock %}

@@ -13,7 +13,7 @@ class OrderForm(forms.ModelForm):
         
 
 class CategoryForm(forms.Form):
-    OPTIONS = tuple(Category.objects.all().values_list('id', 'name'))
+    OPTIONS = Category.objects.all().values_list('id', 'name')
 
     categories = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,

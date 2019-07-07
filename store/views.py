@@ -19,6 +19,7 @@ def catalog(request):
     context = {
         'products': products,
         'categories': categories,
+        'cart': sum(request.session.get('cart', {}).values()),
     }
     return render(request, 'catalog.html', context)
 
@@ -35,6 +36,15 @@ def add_to_cart(request, pk):
     return redirect('store:catalog')
 
 
+def remove(request, pk):
+    cart = request.session.get('cart', {})
+    del cart[pk]
+
+    request.session['cart'] = cart
+    request.session.modified = True
+    return redirect('store:cart')
+
+
 @login_required
 def cart(request):
     cart = request.session.get('cart', {})
@@ -49,7 +59,7 @@ def cart(request):
             for entry in entries:
                 entry.order = order
             Entry.objects.bulk_create(entries)
-            messages.success(request, f'Thanks for shopping! Order #{order.pk} has been created.')
+            messages.add_message(request, 666, f'Thanks for shopping! Your order was created with ID: {order.pk}.')
             request.session['cart'] = {}
             return redirect('store:profile')
     else:
@@ -62,6 +72,7 @@ def cart(request):
         'entries': entries,
         'total_price': total_price,
         'form': form,
+        'cart': sum(request.session.get('cart', {}).values()),
     }
     return render(request, 'cart.html', context)
 
@@ -70,5 +81,6 @@ def cart(request):
 def profile(request):
     context = {
         'orders': Order.objects.filter(customer=request.user),
+        'cart': sum(request.session.get('cart', {}).values()),
     }
     return render(request, 'profile.html', context)
