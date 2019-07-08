@@ -30,8 +30,9 @@ def add_to_cart(request, pk):
         cart[pk] += 1
     else:
         cart[pk] = 1
+    request.session['cart'] = cart
     request.session.modified = True
-    # return redirect('store:catalog')
+    return redirect('store:catalog')
 
 
 def remove(request, pk):

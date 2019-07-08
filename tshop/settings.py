@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
 
 import os
 
@@ -25,7 +29,10 @@ SECRET_KEY = 'xz2illoffh=@kg=oz!6(n1!fshjv!4stde+o0t9a4x7i3(hlbv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '84.201.166.139',
+    '127.0.0.1',
+]
 
 
 # Application definition
