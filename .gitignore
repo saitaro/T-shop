@@ -1,3 +1,5 @@
 .gitignore
 venv
 latest
+*.code-workspace
+bulk.py
