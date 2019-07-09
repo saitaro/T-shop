@@ -27,11 +27,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'xz2illoffh=@kg=oz!6(n1!fshjv!4stde+o0t9a4x7i3(hlbv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '84.201.166.139',
+    'django-shop.tk',
+    'www.django-shop.tk',
+    '84.201.163.1',
     '127.0.0.1',
+    '0.0.0.0',
 ]
 
 
@@ -67,13 +71,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'tshop.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'allauth')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,10 +107,24 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_FORMS = {'signup': 'store.forms.StoreSignupForm'}
-# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
 
 WSGI_APPLICATION = 'tshop.wsgi.application'
 
+# SECURE_SSL_REDIRECT = True
+# SECURE_REDIRECT_EXEMPT = [
+#     r'django-shop.tk/cart',
+#     r'http://django-shop.tk/cart',
+#     r'.+/cart',
+#     r'https://127.0.0.1:8000/',
+#     r'127.0.0.1:8000',
+#     r'127.0.0.1',
+#     r'https://django-shop.tk',
+#     r'http://django-shop.tk',
+#     r'django-shop.tk',
+#     r'84.201.163.1$',
+#     r'https://84.201.163.1/',
+# ]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -152,6 +173,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
 AUTH_USER_MODEL = 'store.User'
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
@@ -163,7 +191,7 @@ LOGIN_REDIRECT_URL = 'store:catalog'
 LOGOUT_REDIRECT_URL = 'store:catalog'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

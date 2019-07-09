@@ -18,7 +18,7 @@
         {% for entry in entries %}
         <tr>
           <th scope="row" class="prodname">{{ entry.product.name }}
-            <a href="{% url 'store:remove' entry.product.pk %}" class="del text-danger ml-2">✕</a>
+            <a href="{% url 'store:remove_from_cart' entry.product.pk %}" class="del text-danger ml-2">✕</a>
           </th>
           <td>{{ entry.quantity }}</td>
           <td>{{ entry.price }}</td>

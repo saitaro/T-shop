@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load crispy_forms_tags %}
+{% load static %}v
 
 {% block content %}
 
@@ -11,8 +12,8 @@
 </div>
 
 <div class="container">
-  <div class="row">
-    <div class="col-12">
+  <div class="row ml-2">
+    <div class="col">
       <div class="d-flex flex-wrap row-hl">
         {% for product in products %}
         <div class="card m-2" style="width:12rem;">
@@ -20,7 +21,7 @@
           {% if product.photo %}
           <img class="card-img-top" style="object-fit:scale-down; height: 15rem; width: 100%" src="{{ product.photo.url }}">
           {% else %}
-          <img class="card-img-top" style="object-fit:scale-down; height: 15rem; width: 100%" src="/media/products/not_available.jpg">
+          <img class="card-img-top" style="object-fit:scale-down; height: 15rem; width: 100%" src="media/products/not_available.jpg">
           {% endif %}
             
           <div class="card-body d-flex flex-column">

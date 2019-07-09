@@ -5,8 +5,10 @@ from django.contrib import messages
 
 from .forms import OrderForm, CategoryForm
 from .models import Product, Entry, Order, Category
+from .decorators import force_http, force_https
 
 
+# @force_http
 def catalog(request):
     if request.GET:
         categories = CategoryForm(request.GET)
@@ -24,24 +26,22 @@ def catalog(request):
     return render(request, 'catalog.html', context)
 
 
+# @force_http
 def add_to_cart(request, pk):
     cart = request.session.get('cart', {})
-    if cart.get(pk):
-        cart[pk] += 1
-    else:
-        cart[pk] = 1
+    cart[pk] = cart.get(pk, 0) + 1
     request.session['cart'] = cart
-    request.session.modified = True
     return redirect('store:catalog')
 
 
-def remove(request, pk):
+def remove_from_cart(request, pk):
     cart = request.session['cart']
     del cart[pk]
     request.session.modified = True
     return redirect('store:cart')
 
 
+# @force_http
 @login_required
 def cart(request):
     cart = request.session.get('cart', {})
@@ -74,6 +74,7 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
+# @force_https
 @login_required
 def profile(request):
     context = {

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +36,7 @@
 			</a>
 
 			<ul class="navbar-nav">
-				<li class="nav-item">
+				<li class="nav-item mr-2">
 					<a class="nav-link text-info" href="{% url 'store:cart' %}"
 						style="font-family: Questrial"><i
 							class="material-icons {% if cart %}text-success{% endif %}">shopping_cart</i>
@@ -45,21 +47,21 @@
 
 				{% if user.is_authenticated %}
 				<li class="nav-item mr-2">
-					<a class="nav-link text-info ml-2" href="{% url 'account_logout' %}"
+					<a class="nav-link text-info" href="{% url 'account_logout' %}"
 						style="font-family: Questrial"><i
 							class="material-icons">meeting_room</i><span
 							class="h5 mx-2 align-text-bottom">Sign out</span></a>
 				</li>
 				{% else %}
 				<li class="nav-item mr-2">
-					<a class="nav-link text-info ml-2" href="{% url 'account_login' %}"
+					<a class="nav-link text-info" href="{% url 'account_login' %}"
 						style="font-family: Questrial"><i
 							class="material-icons">meeting_room</i><span
 							class="h5 mx-2 align-text-bottom">Sign in</span></a>
 				</li>
 				{% endif %}
 
-				<li class="nav-item mr-5 pr-3">
+				<li class="nav-item mr-5">
 					<a class="nav-link text-info" href="{% url 'store:profile' %}"
 						style="font-family: Questrial"><i
 							class="material-icons">person</i><span
