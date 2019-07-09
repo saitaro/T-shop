@@ -26,12 +26,9 @@ def catalog(request):
 
 def add_to_cart(request, pk):
     cart = request.session.get('cart', {})
-    if cart.get(pk):
-        cart[pk] += 1
-    else:
-        cart[pk] = 1
-    request.session.modified = True
-    # return redirect('store:catalog')
+    cart[pk] = cart.get(pk, 0) + 1
+    request.session['cart'] = cart
+    return redirect('store:catalog')
 
 
 def remove(request, pk):
