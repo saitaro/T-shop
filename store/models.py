@@ -1,7 +1,6 @@
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.db import models
-from django.db.models.fields import CharField
 from django.db.models import Sum, F, DecimalField
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -98,5 +97,7 @@ class Order(models.Model):
 
     @property
     def total_price(self):
-        return self.entries.aggregate(total_price=Sum(F('quantity')*F('product__price'),
-                                      output_field=DecimalField()))['total_price']
+        return self.entries.aggregate(
+            total_price=Sum(F('quantity')*F('product__price'),
+            output_field=DecimalField())
+        )['total_price']
