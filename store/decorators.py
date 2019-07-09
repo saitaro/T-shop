@@ -24,7 +24,7 @@ def force_http(view):
             print('NEW', url)
             # return HttpResponseRedirect(url)
             return HttpResponseRedirect('yandex.ru')
-        # return view(request, *args, **kwargs)
-        return HttpResponseRedirect('google.com')
+        return view(request, *args, **kwargs)
+        # return HttpResponseRedirect('google.com')
     return wrapper
 
