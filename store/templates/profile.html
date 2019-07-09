@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -13,7 +13,6 @@
   {% endif %}
 </div>
   
-
 <div class="container">
   <div class="row">
     <div class="col-9 mb-4">
@@ -39,9 +38,8 @@
       {% endfor %}
 
       {% else %}
-      <p class="display-4 mt-4">You have no orders yet.</p>
+      <p class="display-4 mt-5">You have no orders yet</p>
       {% endif %}
-          
         
     </div>
     <div class="col-3">

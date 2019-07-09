@@ -7,6 +7,7 @@ from .models import Order, Category
 
 
 class OrderForm(forms.ModelForm):
+    
     class Meta:
         model = Order
         fields = 'address',
