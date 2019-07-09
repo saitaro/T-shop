@@ -1,7 +1,6 @@
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.db import models
-from django.db.models.fields import CharField
 from django.db.models import Sum, F, DecimalField
 
 from phonenumber_field.modelfields import PhoneNumberField
