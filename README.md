@@ -1,5 +1,5 @@
 # T-shop
-Test e-shop written with Django.
+Тестовый интернет-магазин на Django 2.2
 
 ## Установка на Ubuntu 18.04
 ### Создаём нового пользователя, даём ему root-права и логинимся под ним
@@ -17,7 +17,7 @@ $ sudo apt -y upgrade
 ```
 $ sudo apt -y install python3-pip python3-dev python3-venv git nginx
 ```
-### Создадём виртуальной окружение и активируем его
+### Создаём виртуальное окружение и активируем его
 ```
 $ cd
 $ python3 -m venv ./venv
@@ -67,7 +67,7 @@ WantedBy=sockets.target
 ```
 ### Создаём сервис systemd для gunicorn
 ```
-sudo nano /etc/systemd/system/gunicorn.service
+$ sudo nano /etc/systemd/system/gunicorn.service
 ```
 Копируем в файл настройки:
 ```
@@ -89,7 +89,7 @@ ExecStart=/home/djangoadmin/venv/bin/gunicorn \
 [Install]
 WantedBy=multi-user.target
 ```
-### Запускаем и подключаем скрипты сокета
+### Запускаем и подключаем скрипт сокета
 ```
 $ sudo systemctl start gunicorn.socket
 $ sudo systemctl enable gunicorn.socket
@@ -97,9 +97,9 @@ $ sudo systemctl enable gunicorn.socket
 ## Настройка nginx
 ### Создаём файл проекта
 ```
-sudo nano /etc/nginx/sites-available/T-shop
+$ sudo nano /etc/nginx/sites-available/T-shop
 ```
-И копируем в него конфигурацию:
+И копируем в него конфигурацию, указав свой адрес сервера:
 ```
 server {
     listen 80;
@@ -123,24 +123,23 @@ server {
 
 ### Создадим симлинк, чтобы nginx подключил проект
 ```
-sudo ln -s /etc/nginx/sites-available/T-shop /etc/nginx/sites-enabled
+$ sudo ln -s /etc/nginx/sites-available/T-shop /etc/nginx/sites-enabled
 ```
 
 ### Проверяем корректность конфигурации nginx
 ```
-sudo nginx -t
-
+$ sudo nginx -t
 ```
 
 ### Увеличим максимальный размер загрузки
 
-Откроем файл конфигурации nginx
+Открываем файл конфигурации nginx
 
 ```
 $ sudo nano /etc/nginx/nginx.conf
 ```
 
-Добавим строку в раздел http
+...и добавляем строку в раздел http
 
 ```
 ...
@@ -161,7 +160,7 @@ $ sudo systemctl restart nginx
 ### Добавляем адрес сервера в ALLOWED_HOSTS в настройках проекта
 
 ```
-ALLOWED_HOSTS = ['ip-адрес_сервера']
+ALLOWED_HOSTS = ['<IP-адрес_сервера>']
 ```
 ### Перезапускаем nginx и Gunicorn
 
