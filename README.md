@@ -37,7 +37,7 @@ $ pip3 install -r requirements.txt
 $ python3 manage.py makemigrations
 $ python3 manage.py migrate
 ```
-### Собираем все статичные файлы в папку STATIC_ROOT
+### Собираем все статичные файлы в папку STATIC_ROOT для работы с ними веб-сервера
 ```
 $ python3 manage.py collectstatic
 ```
