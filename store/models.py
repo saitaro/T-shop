@@ -97,5 +97,7 @@ class Order(models.Model):
 
     @property
     def total_price(self):
-        return self.entries.aggregate(total_price=Sum(F('quantity')*F('product__price'),
-                                      output_field=DecimalField()))['total_price']
+        return self.entries.aggregate(
+            total_price=Sum(F('quantity')*F('product__price'),
+            output_field=DecimalField())
+        )['total_price']
