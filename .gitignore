@@ -3,3 +3,4 @@ venv
 latest
 *.code-workspace
 bulk.py
+*\__pycache__
