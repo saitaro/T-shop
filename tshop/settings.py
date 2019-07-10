@@ -105,20 +105,10 @@ ACCOUNT_FORMS = {'signup': 'store.forms.StoreSignupForm'}
 
 WSGI_APPLICATION = 'tshop.wsgi.application'
 
-# SECURE_SSL_REDIRECT = True
-# SECURE_REDIRECT_EXEMPT = [
-#     r'django-shop.tk/cart',
-#     r'http://django-shop.tk/cart',
-#     r'.+/cart',
-#     r'https://127.0.0.1:8000/',
-#     r'127.0.0.1:8000',
-#     r'127.0.0.1',
-#     r'https://django-shop.tk',
-#     r'http://django-shop.tk',
-#     r'django-shop.tk',
-#     r'84.201.163.1$',
-#     r'https://84.201.163.1/',
-# ]
+SECURE_SSL_REDIRECT = True
+SECURE_REDIRECT_EXEMPT = [
+    r'/cart.+',
+]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
