@@ -19,7 +19,7 @@ def force_http(view):
         if request and request.is_secure():
             url = request.get_full_path()
             url = url.replace('https://', ''+url, 1)
-            return HttpResponseRedirect('url)
+            return HttpResponseRedirect(url)
         return view(request, *args, **kwargs)
     return wrapper
 

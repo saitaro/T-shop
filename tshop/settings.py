@@ -9,10 +9,6 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
 
 import os
 
@@ -106,7 +102,6 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_FORMS = {'signup': 'store.forms.StoreSignupForm'}
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
 
 WSGI_APPLICATION = 'tshop.wsgi.application'
 
@@ -135,8 +130,7 @@ DATABASES = {
     }
 }
 
-# SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

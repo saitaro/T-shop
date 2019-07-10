@@ -30,11 +30,6 @@ def add_to_cart(request, pk):
     cart = request.session.get('cart', {})
     cart[pk] = cart.get(pk, 0) + 1
     request.session['cart'] = cart
+    print(cart)
     return redirect('store:catalog')
 
-
-def remove_from_cart(request, pk):
-    cart = request.session['cart']
-    del cart[pk]
-    request.session.modified = True
-    return redirect('cart:cart')

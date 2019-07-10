@@ -37,3 +37,11 @@ def cart(request):
     }
     return render(request, 'cart.html', context)
 
+
+def remove_from_cart(request, pk):
+    cart = request.session['cart']
+    del cart[pk]
+    request.session.modified = True
+    return redirect('cart:cart')
+
+    
