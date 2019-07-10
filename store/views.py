@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 
-from .forms import OrderForm, CategoryForm
-from .models import Product, Entry, Order, Category
+from .forms import CategoryForm
+from .models import Product, Category
 from .decorators import force_http, force_https
 
 
