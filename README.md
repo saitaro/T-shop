@@ -165,6 +165,5 @@ ALLOWED_HOSTS = ['<IP-адрес_сервера>']
 ### Перезапускаем nginx и Gunicorn
 
 ```
-$ sudo systemctl restart nginx
-$ sudo systemctl restart gunicorn
+$ sudo systemctl restart nginx gunicorn
 ```
