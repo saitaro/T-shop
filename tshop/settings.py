@@ -106,8 +106,12 @@ ACCOUNT_FORMS = {'signup': 'store.forms.StoreSignupForm'}
 WSGI_APPLICATION = 'tshop.wsgi.application'
 
 SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECURE_REDIRECT_EXEMPT = [
-    r'/cart.+',
+    r'^$',
+    r'http://django-shop.tk/',
+    r'https://django-shop.tk/',
+    r'/add_to_cart/1',
 ]
 
 # Database

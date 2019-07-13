@@ -37,10 +37,6 @@ $ pip3 install -r requirements.txt
 $ python3 manage.py makemigrations
 $ python3 manage.py migrate
 ```
-### Собираем все статичные файлы в папку STATIC_ROOT для работы с ними веб-сервера
-```
-$ python3 manage.py collectstatic
-```
 ### Запускаем сервер приложений, проверяем работоспособность сайта в браузере
 ```
 $ gunicorn --bind 0.0.0.0:8000 tshop.wsgi
@@ -94,6 +90,10 @@ WantedBy=multi-user.target
 $ sudo systemctl start gunicorn.socket
 $ sudo systemctl enable gunicorn.socket
 ```
+### Собираем все статичные файлы в папку STATIC_ROOT для работы с ними веб-сервера
+```
+$ python3 manage.py collectstatic
+```
 ## Настройка nginx
 ### Создаём файл проекта
 ```
@@ -105,9 +105,11 @@ server {
     listen 80;
     server_name <IP-адрес_сервера>;
 
-    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /favicon.ico { 
+        root /home/djangoadmin/T-shop; 
+    }
     location /static/ {
-        root /home/djangoadmin/T-shop;
+        root /home/djangoadmin/T-shop/favicon.ico;
     }
     
     location /media/ {
@@ -162,8 +164,8 @@ $ sudo systemctl restart nginx
 ```
 ALLOWED_HOSTS = ['<IP-адрес_сервера>']
 ```
-### Перезапускаем nginx и Gunicorn
+### Перезапускаем gunicorn и nginx
 
 ```
-$ sudo systemctl restart nginx gunicorn
+$ sudo systemctl restart gunicorn nginx
 ```
